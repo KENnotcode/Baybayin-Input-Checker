@@ -5,20 +5,20 @@ from __future__ import annotations
 import tkinter as tk
 from tkinter import ttk
 
-BG = "#F4F0E8"
-SURFACE = "#FFFCF5"
-FIELD = "#EAE3D6"
-FIELD_ACTIVE = "#DDD2C1"
-TEXT = "#25221E"
-MUTED = "#6D665D"
-SUBTLE = "#918779"
-ACCENT = "#C85B38"
-ACCENT_HOVER = "#A9472B"
-SUCCESS = "#3F765A"
-ERROR = "#B84E42"
-WARNING = "#A26A2D"
-FOCUS = "#C85B38"
-MARK = "#E9A69A"
+BG = "#0D1117"
+SURFACE = "#151C24"
+FIELD = "#1B2632"
+FIELD_ACTIVE = "#293847"
+TEXT = "#F2EEE6"
+MUTED = "#A4AFB8"
+SUBTLE = "#748290"
+ACCENT = "#D6A84F"
+ACCENT_HOVER = "#E7BB67"
+SUCCESS = "#3F8A63"
+ERROR = "#B95B50"
+WARNING = "#B9853E"
+FOCUS = "#D6A84F"
+MARK = "#70423D"
 
 FONT_UI = "Segoe UI"
 FONT_MONO = "Consolas"
@@ -41,7 +41,7 @@ def configure(root: tk.Tk) -> None:
                     font=(FONT_UI, 11, "bold"))
     style.configure("PanelMeta.TLabel", background=SURFACE, foreground=SUBTLE,
                     font=(FONT_UI, 9))
-    style.configure("Accent.TButton", background=ACCENT, foreground="#FFFFFF",
+    style.configure("Accent.TButton", background=ACCENT, foreground=BG,
                     font=(FONT_UI, 10, "bold"), padding=(24, 12),
                     borderwidth=0, relief=tk.FLAT)
     style.map("Accent.TButton", background=[("active", ACCENT_HOVER),
