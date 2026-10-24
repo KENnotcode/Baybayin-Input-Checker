@@ -1,0 +1,84 @@
+Valid Baybayin
+1. ᜋᜄᜈ᜔ᜇᜅ᜔ ᜂᜋᜄ
+   - magandang umaga
+   - Magandang umaga / Good morning
+
+2. ᜋᜑᜎ᜔ ᜃᜒᜆ
+   - mahal kita
+   - Mahal kita / I love you
+
+3. ᜃᜓᜋᜁᜈ᜔ ᜀᜃᜓ
+   - kumain aku
+   - Kumain ako / I ate
+
+4. ᜐᜎᜋᜆ᜔ ᜉᜓ
+   - salamat pu
+   - Salamat po / Thank you (polite)
+
+5. ᜀᜃᜓ ᜀᜌ᜔ ᜉᜒᜎᜒᜉᜒᜈᜓ
+   - aku ay pilipinu
+   - Ako ay Pilipino / I am Filipino
+
+6. ᜋᜑᜎ᜔ ᜃᜓ ᜀᜅ᜔ ᜀᜃᜒᜅ᜔ ᜉᜋᜒᜎᜒᜌ
+   - mahal ku ang aking pamiliya
+   - Mahal ko ang aking pamilya / I love my family
+
+7. ᜐᜀᜈ᜔ ᜃ ᜉᜓᜉᜓᜈ᜔ᜆ
+   - saan ka pupunta
+   - Saan ka pupunta? / Where are you going?
+
+8. ᜃᜓᜋᜓᜐ᜔ᜆ ᜃ ᜈ
+   - kumusta ka na
+   - Kumusta ka na? / How are you now?
+
+9. ᜋᜐᜌ ᜀᜃᜓ ᜅᜌᜓᜈ᜔
+   - masaya aku ngayun
+   - Masaya ako ngayon / I am happy today
+
+10. ᜋᜌ᜔ ᜈᜒᜌ᜔ᜋ᜔ ᜁᜐ᜔ ᜃᜒᜈᜒᜆ᜔
+    - may niym is kinit
+    - Your original example
+
+
+
+
+Invalid Baybayin Sentence
+1. ᜋᜑᜎ᜔ ᜒᜃᜆ
+   - MARK_WITHOUT_BASE at index 5 (DFA)
+   - The second word starts with a kudlit and has no base letter
+
+2. ᜐᜎᜋᜆ᜔᜔ ᜉᜓ
+   - DOUBLE_VIRAMA at index 5 (DFA)
+   - "salamat" has two killing marks in a row
+
+3. ᜀᜃᜓ ᜀᜌ᜔ ᜉᜒᜓᜎᜒᜉᜒᜈᜓ
+   - DOUBLE_KUDLIT at index 10 (DFA)
+   - "pi" has two kudlits on one consonant
+
+4. ᜃᜓᜋᜁᜈ᜔ ᜀᜃᜓ᜔
+   - KUDLIT_THEN_KILLER at index 10 (DFA)
+   - "ku" is followed by a killing mark
+
+5. ᜋᜄᜈ᜔ᜇᜅ᜔ ᜀᜓᜋᜄ
+   - VOWEL_TAKES_MARK at index 9 (DFA)
+   - "u" is written as vowel A plus a kudlit, which independent vowels cannot take
+
+6. ᜊᜑᜌ᜔ ᜈᜋᜒᜈ᜔ᜓ ᜁᜆᜓ
+   - KUDLIT_AFTER_KILLED at index 10 (DFA)
+   - A kudlit follows the killed "n" in "namin"
+
+7. ᜋᜑᜎ᜔ ᜃᜒᜆa
+   - NOT_IN_ALPHABET at index 8 (DFA)
+   - A Latin "a" is mixed into Baybayin
+
+8. ᜋᜑᜎ᜔ ᜃᜒᜆ!
+   - NOT_IN_ALPHABET at index 8 (DFA)
+   - Punctuation is outside Σ by default (valid if the ASCII-punctuation flag is on)
+
+9. ᜋᜑᜎ᜔ ᜃ᜔ᜆ᜔
+   - NO_VOWEL_IN_WORD at index 5 to 8 (word rules)
+   - The second word is only killed consonants ("k-t"), so it has no vowel sound
+
+10. ᜊᜑᜌ᜔ ᜃᜒᜈ᜔ᜈ᜔ᜌᜒᜆ᜔
+    - DOUBLED_KILLED_CONSONANT at index 7 to 10 (word rules)
+    - "n-n" is a doubled killed consonant
