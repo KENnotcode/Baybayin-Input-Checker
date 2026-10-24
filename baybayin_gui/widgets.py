@@ -66,20 +66,27 @@ class StatusBadge(tk.Label):
         self.configure(text=label, background=color, foreground="white")
 
 
-class ErrorList(tk.Listbox):
-    """Scrollable-friendly list of concise diagnostic messages."""
+class ErrorList(tk.Text):
+    """Read-only, wrapped diagnostic messages."""
 
     def __init__(self, parent: tk.Misc) -> None:
         super().__init__(
-            parent, height=8, background=theme.FIELD, foreground=theme.TEXT,
-            selectbackground=theme.FIELD_ACTIVE, relief=tk.FLAT,
-            borderwidth=0, highlightthickness=0, font=(theme.FONT_UI, 9),
-            activestyle="none",
+            parent, height=8, wrap=tk.WORD, state=tk.DISABLED,
+            background=theme.FIELD, foreground=theme.TEXT,
+            relief=tk.FLAT, borderwidth=0, highlightthickness=0,
+            font=(theme.FONT_UI, 9), padx=10, pady=8,
         )
 
-    def show(self, result: CheckResult) -> None:
-        self.delete(0, tk.END)
+    def show(self, text: str, result: CheckResult) -> None:
+        self.configure(state=tk.NORMAL)
+        self.delete("1.0", tk.END)
         for error in result.errors:
-            self.insert(tk.END, f"{error.rule}  ·  {error.message}")
+            character = text[error.index] if error.index < len(text) else "?"
+            self.insert(
+                tk.END,
+                f"Character {error.index + 1} ({character}) — {error.message}",
+            )
+            self.insert(tk.END, "\n\n")
         if not result.errors:
-            self.insert(tk.END, "No structural or word-shape errors.")
+            self.insert("1.0", "No structural or word-shape errors.")
+        self.configure(state=tk.DISABLED)

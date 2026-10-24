@@ -13,14 +13,44 @@ TRANSITIONS = {
     "dead": {kind: "dead" for kind in ("V", "C", "K", "P", "S")},
 }
 ERRORS = {
-    ("q0", "K"): ("MARK_WITHOUT_BASE", "diacritic with no base letter"),
-    ("q0", "P"): ("MARK_WITHOUT_BASE", "diacritic with no base letter"),
-    ("qV", "K"): ("VOWEL_TAKES_MARK", "independent vowels cannot take marks"),
-    ("qV", "P"): ("VOWEL_TAKES_MARK", "independent vowels cannot take marks"),
-    ("qCK", "K"): ("DOUBLE_KUDLIT", "two kudlits on one consonant"),
-    ("qCK", "P"): ("KUDLIT_THEN_KILLER", "kudlit followed by killer"),
-    ("qX", "P"): ("DOUBLE_VIRAMA", "two killing marks in a row"),
-    ("qX", "K"): ("KUDLIT_AFTER_KILLED", "kudlit after a killed consonant"),
+    ("q0", "K"): (
+        "MARK_WITHOUT_BASE",
+        "This kudlit appears without a consonant base. A kudlit must follow "
+        "a consonant, for example ᜃᜒ.",
+    ),
+    ("q0", "P"): (
+        "MARK_WITHOUT_BASE",
+        "This killer mark appears without a consonant base. A killer must "
+        "follow a consonant, for example ᜃ᜕.",
+    ),
+    ("qV", "K"): (
+        "VOWEL_TAKES_MARK",
+        "An independent vowel cannot take a kudlit. Use a consonant before "
+        "the kudlit instead.",
+    ),
+    ("qV", "P"): (
+        "VOWEL_TAKES_MARK",
+        "An independent vowel cannot take a killer mark. Use a consonant "
+        "before the killer instead.",
+    ),
+    ("qCK", "K"): (
+        "DOUBLE_KUDLIT",
+        "This consonant already has a kudlit. Remove the second kudlit.",
+    ),
+    ("qCK", "P"): (
+        "KUDLIT_THEN_KILLER",
+        "A consonant cannot have both a kudlit and a killer mark. Remove "
+        "one of the marks.",
+    ),
+    ("qX", "P"): (
+        "DOUBLE_VIRAMA",
+        "This consonant already has a killer mark. Remove the second killer.",
+    ),
+    ("qX", "K"): (
+        "KUDLIT_AFTER_KILLED",
+        "A killed consonant cannot be followed by a kudlit. Remove the "
+        "kudlit or remove the killer.",
+    ),
 }
 
 @dataclass
@@ -37,7 +67,7 @@ def _error(token: Token, word: int, rule: str, message: str) -> dict:
         "index": token.index,
         "word": word,
         "rule": rule,
-        "message": f"Error at character {token.index + 1}: {message}.",
+        "message": message,
     }
 
 def scan(tokens: list[Token]) -> tuple[list[Syllable], list[dict], str]:

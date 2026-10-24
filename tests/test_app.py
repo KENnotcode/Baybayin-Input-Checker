@@ -1,4 +1,4 @@
-from app import BaybayinApp
+from main import BaybayinApp
 from baybayin.models import CheckResult
 from baybayin_gui.controller import CheckerController
 

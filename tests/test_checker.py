@@ -43,6 +43,15 @@ def test_dfa_errors():
         assert rule in {error["rule"] for error in check(text)["errors"]}
 
 
+def test_diagnostics_explain_mark_order():
+    result = check("ᜒᜋ")
+
+    assert result["errors"][0]["message"].startswith(
+        "This kudlit appears without a consonant base."
+    )
+    assert "for example ᜃᜒ" in result["errors"][0]["message"]
+
+
 def test_edges_and_preserved_delimiters():
     assert check("")["valid"]
     assert check(" \n\t")["valid"]

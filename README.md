@@ -9,13 +9,19 @@ word has a particular meaning.
 
 ```powershell
 python -m pip install -r requirements.txt
-python app.py
+python main.py
 ```
 
 The application uses Python's built-in Tkinter toolkit. It provides a text
 editor, one Check button, transliteration, an error list, and highlighted
 offending characters. The Noto Sans Tagalog font is used when installed;
 the system falls back to its default font otherwise.
+
+To restart the application automatically when Python files change:
+
+```powershell
+watchmedo auto-restart --directory=. --patterns="*.py" --recursive -- python main.py
+```
 
 Run the tests with:
 

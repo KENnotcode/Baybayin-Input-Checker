@@ -28,7 +28,7 @@ class BaybayinWindow:
         self._build_header(main)
         self._build_editor(main)
         self._build_results(main)
-        root.bind("<Control-Return>", lambda _event: self.check_input())
+        root.bind("<Control-Return>", self._check_from_keyboard)
 
     def _build_header(self, parent: ttk.Frame) -> None:
         header = ttk.Frame(parent, style="App.TFrame")
@@ -112,14 +112,17 @@ class BaybayinWindow:
         self.highlighted.grid(row=2, column=0, columnspan=3, sticky="ew",
                               pady=(22, 0))
 
-    def check_input(self) -> str:
-        text = self.input_text.get("1.0", tk.END)[:-1]
-        self.controller.check_text(text)
+    def _check_from_keyboard(self, _event: tk.Event) -> str:
+        self.check_input()
         return "break"
 
+    def check_input(self) -> None:
+        text = self.input_text.get("1.0", "end-1c")
+        self.controller.check_text(text)
+
     def _render_result(self, result: CheckResult) -> None:
-        text = self.input_text.get("1.0", tk.END)[:-1]
+        text = self.input_text.get("1.0", "end-1c")
         self.status.show(result)
         self.transliteration.configure(text=result.transliteration or "No readable syllables")
         self.highlighted.show(text, result)
-        self.errors.show(result)
+        self.errors.show(text, result)
